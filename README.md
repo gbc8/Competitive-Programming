@@ -1,1 +1,3 @@
-# Competitive-programming---maratona
+# Competitive-programming
+
+Library containing Algorithms and problems solutions
