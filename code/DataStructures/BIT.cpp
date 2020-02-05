@@ -11,7 +11,7 @@ ll lso(ll i){
 	return l;
 }
 
-void ajuste(int pos, int val){
+void update(int pos, int val){
 	if(pos == 0) return;
 	ft[pos] += val;
 	for(pos = pos+lso(pos); pos <= m; pos += lso(pos)){
@@ -19,7 +19,7 @@ void ajuste(int pos, int val){
 	}
 }
 
-ll intervalo(int pos){
+ll query(int pos){
 	ll ans = ft[pos];
 	for(pos = pos-lso(pos); pos > 0; pos -= lso(pos)){
 		ans += ft[pos];
