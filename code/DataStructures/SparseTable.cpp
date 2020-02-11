@@ -23,7 +23,6 @@ class SparseTable{
 			}
 		}
 		T query(int l, int r){
-			if(l > r) return inf;
 			int j = lg[r-l+1];
 			return max(table[l][j], table[r - (1 << j) + 1][j]);
 		}
