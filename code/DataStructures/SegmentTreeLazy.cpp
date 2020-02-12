@@ -82,11 +82,11 @@ class SegTree{
 			lazy.resize(4*n,0); 
 			build(v,1,0,n-1);
 		}
-		T qry(int pos, int i, int j, int l, int r){
-			return query(pos, i, j, l, r);
+		T qry(int l, int r){
+			return query(1, 0, n-1, l, r);
 		}
-		void upd(int pos, int i, int j, int l, int r, T2 val){
-			update(pos, i, j, l, r, val);
+		void upd(int l, int r, T2 val){
+			update(1, 0, n-1, l, r, val);
 		}
 };
 
