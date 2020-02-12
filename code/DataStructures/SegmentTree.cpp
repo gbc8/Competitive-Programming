@@ -54,11 +54,11 @@ class SegTree{
 			tree.resize(4*n);
 			build(v,1,0,n-1);
 		}
-		T qry(int pos, int i, int j, int l, int r){
-			return query(pos,i,j,l,r);
+		T qry(int l, int r){
+			return query(1,0,n-1,l,r);
 		}
-		void upd(int pos, int i, int j, int x, T2 val){
-			update(pos, i, j, x, val);
+		void upd(int j, int x, T2 val){
+			update(1, 0, n-1, x, val);
 		}
 };
 
