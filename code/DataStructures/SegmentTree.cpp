@@ -57,7 +57,7 @@ class SegTree{
 		T qry(int l, int r){
 			return query(1,0,n-1,l,r);
 		}
-		void upd(int j, int x, T2 val){
+		void upd(int x, T2 val){
 			update(1, 0, n-1, x, val);
 		}
 };
