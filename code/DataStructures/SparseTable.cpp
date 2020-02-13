@@ -9,7 +9,7 @@ class SparseTable{
 		vector<vector<T>> table;
 		vector<int> lg;
 	public:
-		void build(vector<T> v){
+		void build(vector<T> &v){
 			int n = v.size();
 			lg.resize(n+1);
 			lg[1] = 0;
