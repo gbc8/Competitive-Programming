@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define ii pair<int,int>
+#define pii pair<int,int>
 
 using namespace std;
 
@@ -9,16 +9,16 @@ vector<vector<pair<int,int>>> graph;
 vector<int> dist;
 
 void dijkstra(int origin){
-	d[origin] = 0;
-	priority_queue<ii, vector<ii>, greater<ii>> pq; //min priority queue
+	dist[origin] = 0;
+	priority_queue<pii, vector<pii>, greater<pii>> pq;
 	pq.push({origin,0});
 	
 	while(!pq.empty()){
-		ii u = pq.top();
+		pii u = pq.top();
 		pq.pop();
 		auto e = graph[u.first];
 		for(auto &j : e){
-			if((u.second + j.second) < d[j.first]){
+			if((u.second + j.second) < dist[j.first]){
 				dist[j.first] = u.second + j.second;
 				pq.push({j.first, dist[j.first]});
 			}
