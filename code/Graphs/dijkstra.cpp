@@ -8,21 +8,21 @@ const int ms = 1e6+5;
 vector<vector<pair<int,int>>> graph;
 vector<int> dist;
 
-void dijkstra(int origin){
-	dist[origin] = 0;
+void dijkstra(int source){
+	dist[source] = 0;
 	priority_queue<pii, vector<pii>, greater<pii>> pq;
-	pq.push({origin,0});
+	pq.emplace(0, source);
 	
-	while(!pq.empty()){
-		pii u = pq.top();
+	while (!pq.empty()){
+		int d = pq.top().first, u = pq.top().second;
 		pq.pop();
-		auto e = graph[u.first];
-		for(auto &j : e){
-			if((u.second + j.second) < dist[j.first]){
-				dist[j.first] = u.second + j.second;
-				pq.push({j.first, dist[j.first]});
+		if (d > dist[u]) continue;
+		for(auto e : graph[u]){
+			int v = e.first, w = e.second;
+			if (dist[u] + w < dist[v]) {
+				dist[v] = dist[u] + w;
+				pq.emplace(dist[v], v);
 			}
-		}
 	}
 }
 
