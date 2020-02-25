@@ -54,7 +54,7 @@ class SegTree{
 			int esq = 2*pos;
 			int dir = 2*pos + 1;
 			int mid = (i+j)/2;
-			T ret; 
+			T ret; //Put default value
 			if(j < l || i > r) {
 				ret = 0;
 				return ret;
