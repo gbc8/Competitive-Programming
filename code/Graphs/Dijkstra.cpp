@@ -23,9 +23,10 @@ void dijkstra(int source){
 				dist[v] = dist[u] + w;
 				pq.emplace(dist[v], v);
 			}
+		}
 	}
 }
-
+	
 int main(){
 	ios::sync_with_stdio(0);
 	cin.tie(0);
