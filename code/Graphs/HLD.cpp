@@ -12,12 +12,12 @@ void hld(int cur){
 	chainId[cur] = chainNo;
 	//pos[cur] = chainSize[chainNo];
 	++chainSize[chainNo];
-	int heavy = -1, ncost = -1;
+	int heavy = -1, size = -1;
 	//find heavy node
 	for(auto e : g[cur]){
-		if(subtsize[e] > ncost){
+		if(subtsize[e] > size){
 			heavy = e;
-			ncost = subtsize[e];
+			size = subtsize[e];
 		}
 	}
 	if(heavy != -1) hld(heavy);
