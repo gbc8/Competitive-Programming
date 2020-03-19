@@ -3,11 +3,11 @@
 
 using namespace std;
 
-vector<int> head, pos, chainSize, chainId, subtsize,tin,tout;
+vector<int> head, pos, chainSize, chainId, subtsize,tin,tout,depth;
 vector<vector<int>> up, g;
 int chainNo, lg, t;
 
-void hld(int cur){
+void hld(int cur, int par){
 	if(head[chainNo] == -1) head[chainNo] = cur;
 	chainId[cur] = chainNo;
 	//pos[cur] = chainSize[chainNo];
@@ -15,17 +15,21 @@ void hld(int cur){
 	int heavy = -1, size = -1;
 	//find heavy node
 	for(auto e : g[cur]){
-		if(subtsize[e] > size){
-			heavy = e;
-			size = subtsize[e];
+		if(e != par){	
+			if(subtsize[e] > size){
+				heavy = e;
+				size = subtsize[e];
+			}
 		}
 	}
 	if(heavy != -1) hld(heavy);
 	//light nodes
-	for(auto e : g[cur]){
-		if(e != heavy){
-			++chainNo;
-			hld(e);
+	for(auto e : g[cur]){	
+		if(e != par){
+			if(e != heavy){
+				++chainNo;
+				hld(e);
+			}
 		}
 	}
 }
@@ -46,6 +50,7 @@ int lca(int u, int v){
 void dfs(int u, int p){
 	tin[u] = ++t;
 	up[u][0] = p;
+	depth[u] = deh[p]+1;
 	subtsize[u] = 1;
 	for(int i = 1; i <= lg; ++i) up[u][i] = up[up[u][i-1]][i-1];
 	for(int v : g[u]){
@@ -63,6 +68,7 @@ void init(int n, int root = 0){
 	pos.resize(n);
 	chainSize.resize(n);
 	chainId.resize(n);
+	depth.resize(n);
 	tin.resize(n);
 	tout.resize(n);
 	subtsize.assign(n,0);
