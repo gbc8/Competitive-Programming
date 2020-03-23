@@ -15,6 +15,7 @@ void sieve(){
 	for(int i = 3; i <= mx; i += 2){
 		if(isprime[i]){
 			primes.push_back(i);
+			if(i > mx/i) continue;
 			for(int j = i+i; j <= mx; j += i) isprime[j] = 0;
 		}
 	} 
