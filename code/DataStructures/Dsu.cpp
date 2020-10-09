@@ -20,11 +20,13 @@ struct dsu{
 		dsu(int n){
 			make(n);
 		}
+		
 		int find(int a){
 			if(p[a] != a) p[a] = find(p[a]);
 			return p[a];
 		}
-		void uniun(int a, int b){
+		
+		void join(int a, int b){
 			a = find(a);
 			b = find(b);
 			if(a!=b){
