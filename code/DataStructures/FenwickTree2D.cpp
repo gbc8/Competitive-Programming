@@ -4,7 +4,7 @@
 using namespace std;
 
 template<class T>
-struct FenwickTree2D{
+struct FenwickTree{
 	private:
 		vector<vector<T>> bit;
 		int n, m;
@@ -30,7 +30,7 @@ struct FenwickTree2D{
     	return ret;
     }
 	public:
-		FenwickTree2D(int x, int y){
+		FenwickTree(int x, int y){
 			n = x;
 			m = y;
 			bit.resize(n+10, vector<T>(m+10));
