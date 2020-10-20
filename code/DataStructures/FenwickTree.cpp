@@ -39,10 +39,6 @@ struct FenwickTree{
     	void insert(int pos, T v){
     		add(pos,v);
     	}
-    	void insert(int l, int r, T v){
-    		add(l,v);
-    		add(r+1,-v);
-    	}
     	int get(int l, int r){
     		return (query(r) - query(l-1));
     	}
