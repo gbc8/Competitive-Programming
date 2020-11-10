@@ -45,7 +45,7 @@ void uniun(ll a, ll b){
 }
 
 
-void ksk(){
+void kruskal(){
   sort(edg.begin(), edg.end());
   total = 1;
   for(int i = 1; i <= m; ++i){
