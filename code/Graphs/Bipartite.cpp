@@ -6,15 +6,12 @@ vector<vector<int>> g;
 vector<bool> d, c;
 
 bool dfs(int v){
-	
-	for (int u : g[v]){
-		if (!d[u]){
-			d[u] = true;
+	d[v] = true;
+	for(int u : g[v]){
+		if(!d[u]){
 			c[u] = !c[v];
-
-			if (!dfs(u)) return false;
-		
-		}else if (c[v] == c[u])	return false;
+			if(!dfs(u)) return false;
+		}else if(c[v] == c[u])	return false;
 	}
 	return true;
 }
@@ -23,6 +20,6 @@ bool dfs(int v){
 int main(){
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-	//resize g,d,c
+
 	return 0;
 }
