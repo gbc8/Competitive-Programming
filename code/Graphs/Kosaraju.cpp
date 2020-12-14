@@ -20,8 +20,8 @@ void dfs(int u){
 
 void dfs2(int u){
 	printf("%d ", u); 
-  component[u] = ncomp;
-  components[ncomp].pb(u);
+  	component[u] = ncomp;
+  	components[ncomp].pb(u);
 	vs[u] = true;
 	for(int v : gt[u]){
 		if(!vs[v]) dfs2(v);
