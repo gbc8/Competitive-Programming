@@ -4,7 +4,7 @@ using namespace std;
 
 const int ms = 1e6+5;
 
-struct dsu{
+class dsu{
 	private:
 		vector<int> sz, p;
 		
