@@ -1,1 +1,1 @@
-Algorithms, Data Structures and Solutions used in Competitive Programming.
+Algorithms and Data Structures used in Competitive Programming.
