@@ -2,32 +2,37 @@
 
 using namespace std;
 
-int t,l,n;
-vector<int> tin, tout;
-vector<vector<int>> up;
-vector<vector<int>> g;
+vector<vector<int>> g,up;
+vector<int> h;
 
-void dfs(int u, int p){
-	tin[u] = ++t;
-	up[u][0] = p;
-	for(int i = 1; i <= l; ++i) up[u][i] = up[up[u][i-1]][i-1];
-	for(int v : g[u]){
-		if(v != p) dfs(v,u);
+void dfs(int v, int p){
+	h[v] = h[p]+1
+	up[v][0] = p;
+	for(int i = 1; i <= 20; ++i) up[v][i] = up[up[v][i-1]][i-1];
+	for(int u : g[v]){
+		if(u != p){
+			dfs(u,v);
+		}
 	}
-	tout[u] = ++t;
 }
 
-bool ancestor(int u, int v){
-	return (tin[u] <= tin[v] && tout[u] >= tout[v]);
-}
-
-int lca(int u, int v){
-	if(ancestor(u,v)) return u;
-	if(ancestor(v,u)) return v;
-	for(int i = l; i >= 0; --i){
-		if(!ancestor(up[u][i],v)) u = up[u][i];
+int lca(int v, int u){
+	if(h[v] < h[u]) swap(u,v);
+	int d = h[v]-h[u];
+	for(int i = 20; i >= 0; --i){
+		if((1 << i) <= d){
+			v = up[v][i];
+			d -= (1<<i);
+		}
 	}
-	return up[u][0];
+	if(v == u) return v;
+	for(int i = 20; i >= 0; --i){
+		if(up[v][i] != up[u][i]){
+			v = up[v][i];
+			u = up[u][i];
+		}
+	}
+	return up[v][0];
 }
 
 int main(){
