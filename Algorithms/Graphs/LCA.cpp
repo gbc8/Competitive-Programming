@@ -6,7 +6,7 @@ vector<vector<int>> g,up;
 vector<int> h;
 
 void dfs(int v, int p){
-	h[v] = h[p]+1
+	h[v] = h[p]+1;
 	up[v][0] = p;
 	for(int i = 1; i <= 20; ++i) up[v][i] = up[up[v][i-1]][i-1];
 	for(int u : g[v]){
