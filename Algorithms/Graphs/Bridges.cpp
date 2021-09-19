@@ -1,7 +1,3 @@
-#include<bits/stdc++.h>
-
-using namespace std;
-
 vector<vector<int>> g;
 vector<int> vs,tin,low;
 vector<pii> bridges;
@@ -19,11 +15,4 @@ void dfs(int v, int p){
 			low[v] = min(low[v],tin[u]);
 		}
 	}
-}
-
-int main(){
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	
-	return 0;
 }

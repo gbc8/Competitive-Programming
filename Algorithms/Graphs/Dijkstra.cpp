@@ -1,8 +1,3 @@
-#include <bits/stdc++.h>
-#define pii pair<int,int>
-
-using namespace std;
-
 const int ms = 1e6+5;
 
 vector<vector<pair<int,int>>> graph;
@@ -25,12 +20,4 @@ void dijkstra(int source){
 			}
 		}
 	}
-}
-	
-int main(){
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	//resize graph and dist;
-	//make();
-	return 0;
 }

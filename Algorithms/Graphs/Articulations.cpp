@@ -1,8 +1,3 @@
-#include <bits/stdc++.h>
-#define pb push_back
-
-using namespace std;
-
 vector<vector<int>> g;
 vector<bool> vs;
 vector<int> tin, low;
@@ -33,10 +28,4 @@ void find_aps() {
   for(int i = 1; i <= n; ++i) {
     if(!vs[i]) dfs(i, -1);
   }
-}
-
-int main(){
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	return 0;
 }
