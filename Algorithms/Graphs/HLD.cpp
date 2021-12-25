@@ -1,83 +1,91 @@
-#include <bits/stdc++.h>
-#define ll long long int
+//Source: Tfg
+class HLD {
+public:
+	void init(int n) {
+		// this doesn't delete edges!
+		sz.resize(n);
+		in.resize(n);
+		out.resize(n);
+		rin.resize(n);
+		p.resize(n);
+		edges.resize(n);
+		nxt.resize(n);
+		h.resize(n);
+	}
 
-using namespace std;
+	void addEdge(int u, int v) {
+		edges[u].push_back(v);
+		edges[v].push_back(u);
+	}
 
-vector<int> head, pos, chainSize, chainId, subtsize,tin,tout,depth;
-vector<vector<int>> up, g;
-int chainNo, lg, t;
+	void setRoot(int n) {
+		t = 0;
+		p[n] = n;
+		h[n] = 0;
+		prep(n, n);
+		nxt[n] = n;
+		hld(n);
+	}
 
-void hld(int cur, int par){
-	if(head[chainNo] == -1) head[chainNo] = cur;
-	chainId[cur] = chainNo;
-	//pos[cur] = chainSize[chainNo];
-	++chainSize[chainNo];
-	int heavy = -1, size = -1;
-	//find heavy node
-	for(auto e : g[cur]){
-		if(e != par){	
-			if(subtsize[e] > size){
-				heavy = e;
-				size = subtsize[e];
+	int getLCA(int u, int v) {
+		while(!inSubtree(nxt[u], v)) {
+			u = p[nxt[u]];
+		}
+		while(!inSubtree(nxt[v], u)) {
+			v = p[nxt[v]];
+		}
+		return in[u] < in[v] ? u : v;
+	}
+
+	bool inSubtree(int u, int v) {
+		// is v in the subtree of u?
+		return in[u] <= in[v] && in[v] < out[u];
+	}
+
+	vector<pair<int, int>> getPathtoAncestor(int u, int anc) {
+		// returns ranges [l, r) that the path has
+		vector<pair<int, int>> ans;
+		//assert(inSubtree(anc, u));
+		while(nxt[u] != nxt[anc]) {
+			ans.emplace_back(in[nxt[u]], in[u] + 1);
+			u = p[nxt[u]];
+		}
+		// this includes the ancestor!
+		ans.emplace_back(in[anc], in[u] + 1);
+		return ans;
+	}
+private:
+	vector<int> in, out, p, rin, sz, nxt, h;
+	vector<std::vector<int>> edges;
+	int t;
+
+	void prep(int on, int par) {
+		sz[on] = 1;
+		p[on] = par;
+		for(int i = 0; i < (int) edges[on].size(); i++) {
+			int &u = edges[on][i];
+			if(u == par) {
+				swap(u, edges[on].back());
+				edges[on].pop_back();
+				i--;
+			} else {
+				h[u] = 1 + h[on];
+				prep(u, on);
+				sz[on] += sz[u];
+				if(sz[u] > sz[edges[on][0]]) {
+					swap(edges[on][0], u);
+				}
 			}
 		}
 	}
-	if(heavy != -1) hld(heavy);
-	//light nodes
-	for(auto e : g[cur]){	
-		if(e != par){
-			if(e != heavy){
-				++chainNo;
-				hld(e);
-			}
+
+	void hld(int on) {
+		in[on] = t++;
+		rin[in[on]] = on;
+		for(auto u : edges[on]) {
+			nxt[u] = (u == edges[on][0] ? nxt[on] : u);
+			hld(u);
 		}
+		out[on] = t;
 	}
-}
-
-bool ancestor(int u, int v){
-	return (tin[u] <= tin[v] && tout[u] >= tout[v]);
-}
-
-int lca(int u, int v){
-	if(ancestor(u,v)) return u;
-	if(ancestor(v,u)) return v;
-	for(int i = lg; i >= 0; --i){
-		if(!ancestor(up[u][i],v)) u = up[u][i];
-	}
-	return up[u][0];
-}
-
-void dfs(int u, int p){
-	tin[u] = ++t;
-	up[u][0] = p;
-	depth[u] = deh[p]+1;
-	subtsize[u] = 1;
-	for(int i = 1; i <= lg; ++i) up[u][i] = up[up[u][i-1]][i-1];
-	for(int v : g[u]){
-		if(v != p) {
-			dfs(v,u);
-			subtsize[u] += subtsize[v];
-		}
-	}
-	tout[u] = ++t;
-}
-
-void init(int n, int root = 0){
-	chainNo = 0, t = 0, lg = ceil(log2(n));
-	head.assign(n,-1);
-	pos.resize(n);
-	chainSize.resize(n);
-	chainId.resize(n);
-	depth.resize(n);
-	tin.resize(n);
-	tout.resize(n);
-	subtsize.assign(n,0);
-	up.assign(n, vector<int>(lg+1));
-	dfs(root,root);
-}
-
-int main(){
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	return 0;
-}
+};
