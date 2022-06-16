@@ -38,7 +38,7 @@ class SegTree{
 			}
 			if(i > r || j < l) return;
 			else if(i >= l && j <= r){
-				tree[pos] += (r-l+1)*val;
+				tree[pos] += (j-i+1)*val;
 				if(i != j){
 					lazy[esq] += val;
 					lazy[dir] += val;
