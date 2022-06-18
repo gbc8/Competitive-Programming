@@ -23,7 +23,7 @@ struct FenwickTree{
     T query(int x, int y){
     	T ret = 0;
     	for (int i = x; i >= 0; i -= lso(i)){
-    	  for (int j = y; j >= 0; j -= lso(i)){
+    	  for (int j = y; j >= 0; j -= lso(j)){
     	    ret += bit[i][j];
     	  }
     	}
