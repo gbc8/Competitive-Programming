@@ -39,7 +39,7 @@ struct FenwickTree{
 			add(x,y,v);
 		}
 		T get(int x, int y){
-			query(x,y);
+			return query(x,y);
 		}
 };
 
